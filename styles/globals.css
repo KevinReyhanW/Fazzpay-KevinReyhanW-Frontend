@@ -19,8 +19,117 @@ a {
   html {
     color-scheme: dark;
   }
-  body {
-    color: white;
-    background: black;
-  }
+  /* body { */
+  /* color: white; */
+  /* background: black; */
+  /* } */
+}
+
+/*AUTH*/
+.container-auth {
+  overflow: hidden;
+}
+.container-image {
+  padding-bottom: 150px;
+  background-color: #6379f4;
+  height: 100vh;
+}
+.title-auth-left {
+  position: absolute;
+  left: 10.42%;
+  right: 82.01%;
+  top: 5.2%;
+  bottom: 90.63%;
+  font-weight: 700;
+  font-size: 29px;
+  line-height: 40px;
+  color: #ffffff;
+}
+.container-text {
+  padding-left: 85px;
+}
+.text h1 {
+  position: absolute;
+  left: 10.42%;
+  right: 62.99%;
+  top: 74.4%;
+  bottom: 22.16%;
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+
+  color: #ffffff;
+}
+.text p {
+  position: absolute;
+  left: 10.42%;
+  right: 55%;
+  top: 80.96%;
+  bottom: 7.28%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+  color: rgba(255, 255, 255, 0.8);
+}
+.auth-form input {
+  width: 100%;
+  height: 37px;
+  left: 857px;
+  top: 414px;
+  border: none;
+  outline: 0;
+  border-bottom: 1px solid grey;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 15px;
+}
+::placeholder {
+  color: #a9a9a9cc;
+}
+.title-auth-right {
+  padding-bottom: 60px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+  color: #3a3d42;
+}
+.text-auth-right {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+
+  color: rgba(58, 61, 66, 0.6);
+}
+.click-me {
+  border: none;
+  background-color: white;
+}
+.click-me:hover {
+  color: blue;
+}
+.in-button {
+  margin-top: 50px;
+  background-color: #dadada;
+  background: #dadada;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+  border: none;
+}
+.account-check {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 23px;
+  margin-top: 50px;
+  text-align: center;
+
+  color: rgba(58, 61, 66, 0.8);
+}
+.auth-icon {
+  position: absolute;
+  padding-top: 45px;
+  color: grey;
 }
