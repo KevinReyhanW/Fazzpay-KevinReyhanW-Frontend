@@ -1,5 +1,9 @@
 import React from "react";
+
 import Header from "components/header";
+import Aside from "components/aside";
+import Footer from "components/footer";
+
 import Head from "next/head";
 
 export default function Layout(props) {
@@ -14,9 +18,17 @@ export default function Layout(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      {/* <Aside /> */}
-      <main>{props.children}</main>
-      {/* <Footer /> */}
+      <div className="container-fluid container-layout">
+        <div className="row">
+          <div className="col-md-3 aside-box">
+            <Aside />
+          </div>
+          <div className="col-md-9">
+            <main>{props.children}</main>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }

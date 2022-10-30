@@ -133,3 +133,138 @@ a {
   padding-top: 45px;
   color: grey;
 }
+
+/*ASIDE*/
+.aside-box {
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+  height: 678px;
+  width: 270px;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  margin-left: 60px;
+}
+.aside-text-icon {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 31px;
+  color: rgba(58, 61, 66, 0.8);
+}
+.aside-text-icon:hover {
+  color: blue;
+}
+.container-layout {
+  background: #fafcff;
+  height: 100vh;
+}
+.aside-container {
+  padding-top: 100px;
+}
+.aside-container-button {
+  background-color: white;
+  border: none;
+}
+.aside-container-button:hover {
+  color: blue;
+}
+
+/*footer*/
+.container-footer {
+  height: 68px;
+  background: #6379f4;
+}
+.footer-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+
+  color: rgba(239, 239, 239, 0.9);
+}
+.footer-text-position {
+  margin-top: 20px;
+}
+/*header*/
+.container-header {
+  height: 140px;
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
+.header-text {
+  font-weight: 700;
+  font-size: 29px;
+  line-height: 40px;
+
+  color: #6379f4;
+}
+.header-user-info {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+
+  text-align: center;
+
+  color: #3a3d42;
+}
+/*home*/
+.home-container {
+  width: 80%;
+  height: 190px;
+  margin: 100px;
+
+  background: #6379f4;
+  border-radius: 20px;
+}
+.home-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 31px;
+  color: #e0e0e0;
+}
+.home-number {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 55px;
+
+  color: #ffffff;
+}
+.dashboard-up {
+  padding-right: 300px;
+  margin-top: 10px;
+}
+.dashboard-button {
+  box-sizing: border-box;
+
+  width: 162px;
+  height: 57px;
+
+  background: rgba(255, 255, 255, 0.2);
+  color: #3a3d42cc;
+  border: none grey;
+  border-radius: 10px;
+  font-size: 22px;
+}
+/*search-receiver*/
+
+.search-receiver {
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+}
+
+.button-search-receiver {
+  border: none;
+  background-color: white;
+}
+.profile-pic {
+  background-blend-mode: normal;
+  border-radius: 10px;
+  height: 70px;
+  width: 70px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+}

@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import axiosClient from "utils/axios";
-import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { register } from "../../stores/actions/signup";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
-  const handleSubmit = async () => {
-    try {
-      const result = await axiosClient.post("/auth/login", form);
-      Cookies.set("token", result.data.data.token);
-      Cookies.set("userId", result.data.data.id);
-      //   proses kondisi pengecekan pin jika ada akan diarahkan ke home jika tidak ada akan diarahkan ke create pin
-      router.push("/home");
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = () => {
+    dispatch(register(form))
+      .then((response) => {
+        alert(response.value.data.msg);
+        router.push("/login");
+      })
+      .catch((error) => {
+        alert(error.response.data.msg);
+      });
   };
 
   const handleChangeText = (e) => {
@@ -63,6 +67,7 @@ export default function Login() {
               </div>
               <input
                 type="text"
+                name="firstName"
                 placeholder="Enter your firstname"
                 onChange={handleChangeText}
               />
@@ -73,6 +78,7 @@ export default function Login() {
               </div>
               <input
                 type="text"
+                name="lastName"
                 placeholder="Enter your lastname"
                 onChange={handleChangeText}
               />
@@ -83,6 +89,7 @@ export default function Login() {
               </div>
               <input
                 type="email"
+                name="email"
                 placeholder="Enter your e-mail"
                 onChange={handleChangeText}
               />
@@ -93,6 +100,7 @@ export default function Login() {
               </div>
               <input
                 type="password"
+                name="password"
                 placeholder="Create your password"
                 onChange={handleChangeText}
               />

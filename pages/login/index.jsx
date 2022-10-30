@@ -1,23 +1,36 @@
 import React, { useState } from "react";
-import axiosClient from "utils/axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { login } from "../../stores/actions/signin";
+import { getDataUserById } from "../../stores/actions/user";
 import { Icon } from "@iconify/react";
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [form, setForm] = useState({});
 
-  const handleSubmit = async () => {
-    try {
-      const result = await axiosClient.post("/auth/login", form);
-      Cookies.set("token", result.data.data.token);
-      Cookies.set("userId", result.data.data.id);
-      //   proses kondisi pengecekan pin jika ada akan diarahkan ke home jika tidak ada akan diarahkan ke create pin
-      router.push("/home");
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleRegister = () => {
+    router.push("/register");
+  };
+
+  const handleSubmit = () => {
+    dispatch(login(form))
+      .then((response) => {
+        dispatch(getDataUserById(response.value.data.data.id));
+        Cookies.set("token", response.value.data.data.token);
+        Cookies.set("userId", response.value.data.data.id);
+        // Cookies.set("pin", response.value.data.data.pin);
+        alert(response.value.data.msg);
+        {
+          response.value.data.data.pin === null
+            ? router.push("/create-pin")
+            : router.push("/home");
+        }
+      })
+      .catch((error) => {
+        alert(error.response.data.msg);
+      });
   };
 
   const handleChangeText = (e) => {
@@ -63,6 +76,7 @@ export default function Login() {
               </div>
               <input
                 type="email"
+                name="email"
                 placeholder="Enter your e-mail"
                 onChange={handleChangeText}
               />
@@ -73,6 +87,7 @@ export default function Login() {
               </div>
               <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
                 onChange={handleChangeText}
               />
@@ -91,40 +106,13 @@ export default function Login() {
             </div>
             <h4 className="d-flex justify-content-center account-check">
               Dont have an account? Lets{" "}
-              <button className="click-me">Sign Up</button>
+              <button className="click-me" onClick={handleRegister}>
+                Sign Up
+              </button>
             </h4>
           </header>
         </div>
       </div>
     </main>
-    // <div className="container text-center">
-    //   <div className="mt-2">
-    //     <form className="card p-5">
-    //       <h1>Login</h1>
-    //       <hr />
-    //       <input
-    //         type="email"
-    //         className="form-control my-2"
-    //         name="email"
-    //         placeholder="Input email ..."
-    //         onChange={handleChangeText}
-    //       />
-    //       <input
-    //         type="password"
-    //         className="form-control my-2"
-    //         name="password"
-    //         placeholder="Input password ..."
-    //         onChange={handleChangeText}
-    //       />
-    //       <button
-    //         type="button"
-    //         className="btn btn-primary mt-3"
-    //         onClick={handleSubmit}
-    //       >
-    //         Submit
-    //       </button>
-    //     </form>
-    //   </div>
-    // </div>
   );
 }
