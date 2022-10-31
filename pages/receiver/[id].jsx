@@ -1,16 +1,24 @@
 import Layout from "layout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { transfer } from "../../stores/actions/transfer";
 import { useDispatch } from "react-redux";
 import { Icon } from "@iconify/react";
 import { getDataUserById } from "../../stores/actions/user";
+import { checkPin } from "../../stores/actions/pin";
+
 export default function Receiver() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const { id } = router.query;
+  const [form, setForm] = useState({
+    receiverId: id,
+    amount: "",
+    notes: "",
+  });
   const imageUser = `https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/${data.image}`;
-  console.log(data);
+
   const getData = () => {
     dispatch(getDataUserById(id))
       .then((response) => {
@@ -20,9 +28,25 @@ export default function Receiver() {
         console.log(error);
       });
   };
-  //BIKIN PROSES TRANSFER (REQUEST BODY)
+
+  const handleSubmit = () => {
+    dispatch(transfer(form))
+      .then((response) => {
+        alert(response.value.data.msg);
+      })
+      .catch((error) => {
+        alert(error.response.data.msg);
+      });
+  };
+
+  const handleChangeText = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckPin = () => {
+    dispatch(checkPin(pin));
+  };
   //BIKIN PROSES PENGECEKAN JIKA PIN
-  //YAALLAH
   useEffect(() => {
     getData();
   }, []);
@@ -79,20 +103,40 @@ export default function Receiver() {
                       ></button>
                     </div>
                     <div className="modal-body">
-                      <h5>Please add the amount you want to transfer</h5>
-                      <input
-                        type="text"
-                        id="amount"
-                        name="amount"
-                        className="transfer-input"
-                      ></input>
+                      <h5>Please add the these details before you transfer</h5>
+                      <form className="form d-grid">
+                        <input
+                          type="text"
+                          name="receiverId"
+                          value={id}
+                          disabled
+                          onChange={handleChangeText}
+                        />
+                        <br />
+                        <br />
+                        <input
+                          type="text"
+                          name="amount"
+                          placeholder="Please add the amount of money you want to transfer"
+                          onChange={handleChangeText}
+                        />
+                        <br />
+                        <br />
+                        <input
+                          type="text"
+                          name="notes"
+                          placeholder="add notes"
+                          onChange={handleChangeText}
+                        />
+                      </form>
                       <h5>Please confirm your pin to transfer</h5>
-                      <input
-                        type="text"
-                        id="amount"
-                        name="amount"
-                        className="transfer-input"
-                      ></input>
+                      <form className="form d-grid">
+                        <input
+                          type="text"
+                          name="pin"
+                          onChange={handleChangeText}
+                        />
+                      </form>
                     </div>
                     <div className="modal-footer">
                       <button
@@ -100,10 +144,14 @@ export default function Receiver() {
                         className="btn btn-secondary"
                         data-bs-dismiss="modal"
                       >
-                        Close
+                        Cancel
                       </button>
-                      <button type="button" className="btn btn-primary">
-                        Save changes
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={handleSubmit}
+                      >
+                        Send
                       </button>
                     </div>
                   </div>

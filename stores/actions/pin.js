@@ -6,3 +6,10 @@ export const createPin = (userId, data) => {
     payload: axiosClient.patch(`/user/pin/${userId}`, data),
   };
 };
+
+export const checkPin = (pin) => {
+  return {
+    type: "CHECK_PIN",
+    payload: axiosClient.get(`/user/pin/${pin}`),
+  };
+};

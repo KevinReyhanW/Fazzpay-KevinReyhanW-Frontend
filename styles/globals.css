@@ -268,3 +268,45 @@ a {
   border: none;
   background-color: white;
 }
+
+/*history*/
+.history-container {
+  background-color: rgb(134, 175, 115);
+}
+.transfer-text-header {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+
+  color: #3a3d42;
+}
+.transfer-note {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #4d4b57;
+}
+
+@media (max-width: 870px) {
+  .container-text {
+    margin: auto;
+    padding: 0 20px;
+  }
+  .bg-image {
+    display: none;
+  }
+  .container-image {
+    display: none;
+    background: none;
+  }
+}
+@media (max-width: 576px) {
+  .bg-image {
+    display: none;
+  }
+}

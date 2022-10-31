@@ -6,6 +6,7 @@ import signup from "./signup";
 import user from "./user";
 import pinC from "./pin";
 import topupM from "./topup";
+import transferM from "./transfer";
 
 export default combineReducers({
   counter,
@@ -14,4 +15,5 @@ export default combineReducers({
   user,
   pinC,
   topupM,
+  transferM,
 });

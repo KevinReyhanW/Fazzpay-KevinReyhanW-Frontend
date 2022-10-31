@@ -40,7 +40,7 @@ export default function Login() {
   return (
     <main className="container-auth">
       <div className="row row-auth">
-        <div className="container-image col-md-7 col-sm-12 d-flex justify-content-center align-items-center">
+        <div className="col-md-7 col-sm-12 container-image d-flex justify-content-center align-items-center">
           <div className="bg-image">
             <h1 className="title-auth-left">FazzPay</h1>
             <img src="/authphone.png" alt="phone" />
@@ -56,7 +56,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <div className="container-text col-md-5 col-sm-12 d-flex justify-content-start align-items-center">
+        <div className="col-md-5 col-sm-12 container-text d-flex justify-content-start align-items-center">
           <header className="right-side">
             <div className="container-auth-right">
               <h1 className="title-auth-right">
