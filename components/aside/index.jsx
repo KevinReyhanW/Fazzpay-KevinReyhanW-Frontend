@@ -14,7 +14,7 @@ export default function Aside() {
   const handleLogout = () => {
     Cookies.remove("token");
     Cookies.remove("userId");
-    router.push("/login");
+    window.location.reload();
   };
   return (
     <>
