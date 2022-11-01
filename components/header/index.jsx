@@ -1,20 +1,26 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { Container, NavDropdown } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { logout } from "../../stores/actions/logout";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
 export default function Header() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user.data);
   const imageUser = `https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/${user.data.image}`;
 
   const handleLogout = () => {
-    Cookies.remove("token");
-    Cookies.remove("userId");
-    window.location.reload();
+    dispatch(logout()).then((response) => {
+      alert(response.value.data.msg);
+      Cookies.remove("token");
+      Cookies.remove("userId");
+      localStorage.clear();
+      router.push("/");
+    });
   };
 
   return (

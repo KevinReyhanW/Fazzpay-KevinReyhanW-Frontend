@@ -7,11 +7,13 @@ import user from "./user";
 import pinC from "./pin";
 import topupM from "./topup";
 import transferM from "./transfer";
+import out from "./logout";
 
 export default combineReducers({
   counter,
   signin,
   signup,
+  out,
   user,
   pinC,
   topupM,

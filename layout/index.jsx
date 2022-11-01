@@ -18,9 +18,9 @@ export default function Layout(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div className="container-fluid container-layout">
+      <div className="container">
         <div className="row">
-          <div className="col-md-3 aside-box">
+          <div className="col-md-3">
             <Aside />
           </div>
           <div className="col-md-9">

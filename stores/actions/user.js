@@ -6,3 +6,5 @@ export const getDataUserById = (id) => {
     payload: axiosClient.get(`/user/profile/${id}`),
   };
 };
+//GETDATAUSERLOGIN
+//DI REDUCER BEDAIN JUGA

@@ -23,14 +23,14 @@ export default function ModalTopUp() {
   };
   return (
     <>
-      <button
+      {/* <button
         type="button"
         className="btn btn-secondary dashboard-button"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
         <Icon icon={"akar-icons:plus"} width="28" /> Top up
-      </button>
+      </button> */}
       <div
         className="modal fade"
         id="exampleModal"

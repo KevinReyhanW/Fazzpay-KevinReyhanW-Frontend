@@ -4,8 +4,9 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: black;
+  background: #fafcff;
 }
-
 a {
   color: inherit;
   text-decoration: none;
@@ -133,44 +134,40 @@ a {
   padding-top: 45px;
   color: grey;
 }
-
 /*ASIDE*/
-.aside-box {
-  background: #ffffff;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 25px;
-  height: 678px;
-  width: 270px;
-  margin-top: 70px;
-  margin-bottom: 20px;
-  margin-left: 60px;
+.aside {
+  height: 70vh;
 }
-.aside-text-icon {
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 31px;
-  color: rgba(58, 61, 66, 0.8);
-}
-.aside-text-icon:hover {
-  color: blue;
-}
-.container-layout {
-  background: #fafcff;
-  height: 100vh;
-}
-.aside-container {
-  padding-top: 100px;
-}
-.aside-container-button {
+.aside-btn {
   background-color: white;
+  color: #3a3d42cc;
   border: none;
 }
-.aside-container-button:hover {
+.aside-btn-logout {
+  background-color: white;
+  color: #3a3d42cc;
+  border: none;
+}
+.aside-btn:hover {
+  background-color: white;
   color: blue;
 }
+.aside-btn-logout:hover {
+  background-color: white;
+  color: red;
+}
+/*balance*/
+.bg-balance {
+  background-color: #6379f4;
+}
+.bg-button {
+  background: rgba(255, 255, 255, 0.2);
 
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
 /*footer*/
-.container-footer {
+/* .container-footer {
   height: 68px;
   background: #6379f4;
 }
@@ -184,9 +181,9 @@ a {
 }
 .footer-text-position {
   margin-top: 20px;
-}
+} */
 /*header*/
-.container-header {
+/* .container-header {
   height: 140px;
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
@@ -207,9 +204,9 @@ a {
   text-align: center;
 
   color: #3a3d42;
-}
+} */
 /*home*/
-.home-container {
+/* .home-container {
   width: 80%;
   height: 190px;
   margin: 100px;
@@ -246,7 +243,7 @@ a {
   border: none grey;
   border-radius: 10px;
   font-size: 22px;
-}
+} */
 /*search-receiver*/
 
 .search-receiver {

@@ -19,6 +19,7 @@ export default function Receiver() {
   });
   const imageUser = `https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/${data.image}`;
 
+  //NAVBAR BERUBAH KARENA 2X DISPATCH, UBAH DENGAN DISPATCH YANG BERBEDA
   const getData = () => {
     dispatch(getDataUserById(id))
       .then((response) => {
