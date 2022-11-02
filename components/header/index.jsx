@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 import Navbar from "react-bootstrap/Navbar";
 import { Container, NavDropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -24,7 +25,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar bg="white" expand="lg" className="my-4">
+    <Navbar bg="white" expand="lg">
       <Container>
         <Navbar.Brand>
           <h1 className="header-text">FazzPay</h1>
@@ -48,10 +49,11 @@ export default function Header() {
             </NavDropdown.Item>
           </NavDropdown>
           <h4 className="header-user-info">
-            {user.data.firstName}
+            {user.data.firstName} {user.data.lastName}
             <br />
             {user.data.noTelp}
           </h4>
+          <Icon icon="akar-icons:bell" width="28" />
         </Navbar.Collapse>
       </Container>
     </Navbar>

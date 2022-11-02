@@ -18,17 +18,19 @@ export default function Home() {
   const getHistoryTransfer = async () => {
     try {
       const result = await axiosClient.get(
-        "/transaction/history?page=1&limit=5&filter=MONTH"
+        "/transaction/history?page=1&limit=5&filter=YEAR"
       );
       setData(result.data.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getHistoryTransfer();
   }, []);
 
+  //kasih conditional di image
   return (
     <Layout>
       <main className="container my-5">
@@ -89,18 +91,26 @@ export default function Home() {
             </div>
           </div>
           <div className="col-6 rounded 3 mb-3 text-white">
-            <div className="row py-3 px-3 bg-danger ms-1 shadow">
+            <div className="row py-3 px-3 bg-primary ms-1 shadow">
               <div className="col-6">
                 <h2>Transaction History</h2>
               </div>
               <div className="col-3 ms-3">
                 <h2>See all</h2>
               </div>
-              <div className="col-4">
+              <div className="col-6">
                 {data.map((item) => (
-                  <div className="my-3" key={item.id}>
-                    <div className="transfer-note">{item.firstName}</div>
-                    <div className="transfer-note">Rp.{item.amount}</div>
+                  <div className="my-3 d-flex" key={item.id}>
+                    <img
+                      src={`${process.env.URL_CLOUDINARY}${item.image}`}
+                      alt=""
+                      className="rounded"
+                      style={{ width: "80px" }}
+                    ></img>
+                    <div className="">
+                      <div className="transfer-note">{item.firstName}</div>
+                      <div className="transfer-note">Rp.{item.amount}</div>
+                    </div>
                   </div>
                 ))}
               </div>

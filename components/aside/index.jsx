@@ -52,7 +52,10 @@ export default function Aside() {
                   <h5 className="ms-3 mt-1">Top Up</h5>
                   <ModalTopUp />
                 </button>
-                <button className="btn btn-primary d-flex align-items-center w-75 justify-content-start mt-3 aside-btn">
+                <button
+                  className="btn btn-primary d-flex align-items-center w-75 justify-content-start mt-3 aside-btn"
+                  onClick={() => handleNavigate("/profile")}
+                >
                   <Icon icon={"ant-design:user-outlined"} width="28" />
                   <h5 className="ms-3 mt-1">Profile</h5>
                 </button>

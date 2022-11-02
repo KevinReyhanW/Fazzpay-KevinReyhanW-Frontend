@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../stores/actions/signin";
 import { getDataUserById } from "../../stores/actions/user";
 import { Icon } from "@iconify/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -21,16 +23,22 @@ export default function Login() {
         Cookies.set("token", response.value.data.data.token);
         Cookies.set("userId", response.value.data.data.id);
         // Cookies.set("pin", response.value.data.data.pin);
-        alert(response.value.data.msg);
-        {
-          response.value.data.data.pin === null
-            ? router.push("/create-pin")
-            : router.push("/home");
-        }
+        toast.success(response.value.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setTimeout(() => {
+          {
+            response.value.data.data.pin === null
+              ? router.push("/create-pin")
+              : router.push("/home");
+          }
+        }, 3000);
       })
-      .catch((error) => {
-        alert(error.response.data.msg);
-      });
+      .catch((error) =>
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        })
+      );
   };
 
   const handleChangeText = (e) => {
@@ -102,6 +110,7 @@ export default function Login() {
                 onClick={handleSubmit}
               >
                 Login
+                <ToastContainer />
               </button>
             </div>
             <h4 className="d-flex justify-content-center account-check">
