@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { createPin } from "../../stores/actions/pin";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,7 +35,7 @@ export default function Login() {
     }
   };
 
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get("id");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,11 +45,15 @@ export default function Login() {
     }
     dispatch(createPin(userId, { pin: allPin }))
       .then((response) => {
-        alert(response.value.data.msg);
+        toast.success(response.value.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
         router.push("/home");
       })
       .catch((error) => {
-        alert(error.response.data.msg);
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
@@ -113,6 +119,7 @@ export default function Login() {
             </form>
           </header>
         </div>
+        <ToastContainer />
       </div>
     </main>
   );

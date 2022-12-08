@@ -14,7 +14,7 @@ a {
 
 * {
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -249,11 +249,32 @@ a {
   font-size: 22px;
 } */
 /*search-receiver*/
-
+.card-item {
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.027);
+}
+.bg-color {
+  background-color: white;
+}
+.rounder {
+  border-radius: 0px !important;
+}
+.dashboard-transaction {
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+}
 .search-receiver {
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
   border-radius: 25px;
+}
+
+.bgPhone {
+  background-color: #6379f4 !important;
+  border: none !important;
+  color: white !important;
+}
+.bgSecondary {
+  background-color: #f9fbfe !important;
 }
 
 .button-search-receiver {
@@ -294,7 +315,9 @@ a {
 }
 
 /*PROFILE*/
-
+.profile-box {
+  height: 70vh;
+}
 .img-size {
   border-radius: 10px;
   width: 15%;
@@ -305,7 +328,12 @@ a {
   background-color: transparent;
   border: none;
 }
-
+.btn-profile {
+  background: #e5e8ed;
+  height: 67px;
+  width: 43%;
+  border-radius: 10px;
+}
 @media (max-width: 870px) {
   .container-text {
     margin: auto;

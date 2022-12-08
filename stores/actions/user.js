@@ -6,11 +6,9 @@ export const getDataUserById = (id) => {
     payload: axiosClient.get(`/user/profile/${id}`),
   };
 };
-//GETDATAUSERLOGIN
-//DI REDUCER BEDAIN JUGA
 export const updateUserImage = (id, data) => {
   return {
     type: "UPDATE_IMAGE_USER",
-    payload: axiosClient.patch(`user/image/${id}`, data),
+    payload: axiosClient.patch(`/user/image/${id}`, data),
   };
 };

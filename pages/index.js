@@ -9,7 +9,7 @@ export default function LandingPage() {
     if (token) {
       router.push("/home");
     } else {
-      router.push("/login");
+      router.push("/auth/login");
     }
   }, []);
 

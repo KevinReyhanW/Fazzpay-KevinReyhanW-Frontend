@@ -1,23 +1,30 @@
 import React, { useState } from "react";
-import axiosClient from "utils/axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import { Icon } from "@iconify/react";
+import { forgotPassword } from "../../stores/actions/forgotPassword";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
-  const [form, setForm] = useState({});
-
-  const handleSubmit = async () => {
-    try {
-      const result = await axiosClient.post("/auth/login", form);
-      Cookies.set("token", result.data.data.token);
-      Cookies.set("userId", result.data.data.id);
-      //   proses kondisi pengecekan pin jika ada akan diarahkan ke home jika tidak ada akan diarahkan ke create pin
-      router.push("/home");
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+  const [form, setForm] = useState({
+    email: "",
+    linkDirect: "https://www.google.com/",
+  });
+  const handleSubmit = () => {
+    dispatch(forgotPassword(form))
+      .then((response) => {
+        toast.success(response.value.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        router.push("/auth/login");
+      })
+      .catch((error) =>
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        })
+      );
   };
 
   const handleChangeText = (e) => {
@@ -80,6 +87,7 @@ export default function Login() {
             </div>
           </header>
         </div>
+        <ToastContainer />
       </div>
     </main>
   );

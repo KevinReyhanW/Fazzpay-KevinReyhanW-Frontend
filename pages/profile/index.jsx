@@ -1,18 +1,32 @@
 import React, { useState } from "react";
-import Layout from "layout";
+import Layout from "layout/main";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
+import defaultImage from "../../public/anon.png";
 import { ToastContainer, toast } from "react-toastify";
+import { logout } from "../../stores/actions/logout";
 import "react-toastify/dist/ReactToastify.css";
 import { getDataUserById, updateUserImage } from "../../stores/actions/user";
+import Spinner from "react-bootstrap/Spinner";
 export default function Profile() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const user = useSelector((state) => state.user);
   const dataUser = user.data;
   const imageUser = `${process.env.URL_CLOUDINARY}${user.data.image}`;
   const [newImage, setNewImage] = useState({});
   const [imagePreview, setImagePreview] = useState("");
   const lengthImage = Object.keys(newImage).length;
+
+  // const handleNavigate = (nav) => {
+  //   router.push(`/${nav}`);
+  // };
+
+  const handleInformation = () => {
+    router.push("/profile/information");
+  };
 
   const handleInputImage = (e) => {
     const { name, files } = e.target;
@@ -37,16 +51,37 @@ export default function Profile() {
       );
   };
 
+  const handleLogout = () => {
+    dispatch(logout()).then((response) => {
+      toast.success(response.value.data.msg, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        Cookies.remove("token");
+        Cookies.remove("id");
+        localStorage.clear();
+        router.push("/");
+      }, 3000);
+    });
+  };
+
   return (
     <Layout>
       <main className="container my-5">
         <div className="row">
-          <div className="rounded 3 mb-3 text-black shadow bg-white bg-profile text-center">
+          <div>
             {user.isLoading ? (
-              <h1>Loading</h1>
+              <div className="text-center">
+                <Spinner
+                  animation="border"
+                  size="lg"
+                  className="my-4"
+                  variant="primary"
+                />
+              </div>
             ) : (
               <div
-                className="py-5 rounded rounded-3 bg-white"
+                className="py-4 rounded rounded-3 bg-white"
                 style={{ padding: "0px 30px" }}
               >
                 <div className="text-center mb-3">
@@ -56,13 +91,13 @@ export default function Profile() {
                         ? imagePreview
                         : dataUser.image
                         ? imageUser
-                        : "/anon.png"
+                        : defaultImage
                     }
                     alt=""
                     className="rounded-3 img-size"
                   />
                 </div>
-                <div className="text-center mb-3">
+                <div className="text-center mb-1">
                   <label className="border-0 bg-transparent" htmlFor="image">
                     <input
                       type="file"
@@ -78,10 +113,9 @@ export default function Profile() {
                   </label>
                 </div>
                 {lengthImage > 0 ? (
-                  <div className="text-center mb-5">
+                  <div className="text-center">
                     <button className="button-save" onClick={handleUpdateImage}>
                       Save
-                      <ToastContainer />
                     </button>
                   </div>
                 ) : (
@@ -89,9 +123,45 @@ export default function Profile() {
                 )}
               </div>
             )}
+            <div>
+              <div className="text-center mb-2">
+                <h2>
+                  {dataUser.firstName} {dataUser.lastName}
+                </h2>
+                <h6>{dataUser.noTelp}</h6>
+              </div>
+              <div className="row py-3 px-3 d-flex flex-column justify-content-center">
+                <div className="mt-5 col-lg-6 container text-start">
+                  <button
+                    className="btn btn-lg bg-light w-100 py- d-flex justify-content-between"
+                    onClick={handleInformation}
+                  >
+                    Personal Information
+                    <Icon icon={"bi:arrow-right"} width="28" />
+                  </button>
+                  <button className="btn btn-lg bg-light w-100 py- d-flex justify-content-between mt-4">
+                    Change Password
+                    <Icon icon={"bi:arrow-right"} width="28" />
+                  </button>
+
+                  <button className="btn btn-lg bg-light w-100 py- d-flex justify-content-between mt-4">
+                    Change PIN
+                    <Icon icon={"bi:arrow-right"} width="28" />
+                  </button>
+
+                  <button
+                    className="btn btn-lg bg-light w-100 py- d-flex justify-content-between mt-4"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
+      <ToastContainer />
     </Layout>
   );
 }

@@ -3,33 +3,34 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { login } from "../../stores/actions/signin";
-import { getDataUserById } from "../../stores/actions/user";
 import { Icon } from "@iconify/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [form, setForm] = useState({});
 
   const handleRegister = () => {
-    router.push("/register");
+    router.push("/auth/register");
+  };
+  const handleForgot = () => {
+    router.push("/auth/forgot-password");
   };
 
   const handleSubmit = () => {
     dispatch(login(form))
       .then((response) => {
-        dispatch(getDataUserById(response.value.data.data.id));
         Cookies.set("token", response.value.data.data.token);
-        Cookies.set("userId", response.value.data.data.id);
-        // Cookies.set("pin", response.value.data.data.pin);
+        Cookies.set("id", response.value.data.data.id);
         toast.success(response.value.data.msg, {
           position: toast.POSITION.TOP_CENTER,
         });
         setTimeout(() => {
           {
             response.value.data.data.pin === null
-              ? router.push("/create-pin")
+              ? router.push("/auth/create-pin")
               : router.push("/home");
           }
         }, 3000);
@@ -102,7 +103,9 @@ export default function Login() {
               <br />
             </form>
             <div className="d-flex justify-content-end">
-              <button className="click-me">Forgot password?</button>
+              <button className="click-me" onClick={handleForgot}>
+                Forgot password?
+              </button>
             </div>
             <div className="d-grid">
               <button

@@ -1,61 +1,48 @@
-import React from "react";
-import { Icon } from "@iconify/react";
-import Navbar from "react-bootstrap/Navbar";
-import { Container, NavDropdown } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { logout } from "../../stores/actions/logout";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import { getDataUserById } from "stores/actions/user";
 import Cookies from "js-cookie";
 
-export default function Header() {
-  const router = useRouter();
+export default function Navbar() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const imageUser = `https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/${user.data.image}`;
+  const [user, setUser] = useState({});
 
-  const handleLogout = () => {
-    dispatch(logout()).then((response) => {
-      alert(response.value.data.msg);
-      Cookies.remove("token");
-      Cookies.remove("userId");
-      localStorage.clear();
-      router.push("/");
-    });
-  };
+  useEffect(() => {
+    dispatch(getDataUserById(Cookies.get("id")))
+      .then((result) => {
+        setUser(result.value.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
-    <Navbar bg="white" expand="lg">
-      <Container>
-        <Navbar.Brand>
+    <div>
+      <div className="bg-white shadow-sm w-100 container-fluid py-2">
+        <div className="container d-flex justify-content-between">
           <h1 className="header-text">FazzPay</h1>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-          <NavDropdown
-            align="end"
-            title={
-              <img
-                src={imageUser}
+          <div className="row p-lg-0 m-lg-0 w-auto">
+            <div
+              className="col-3 ms-2 "
+              style={{ height: "70px", width: "70px", position: "relative" }}
+            >
+              <Image
+                src={`${process.env.URL_CLOUDINARY}${user.image}`}
+                layout="fill"
                 alt=""
-                className="rounded-circle"
-                style={{ width: "44px" }}
-              ></img>
-            }
-            id="dropdown-menu-align-end"
-          >
-            <NavDropdown.Item classname="text-danger" onClick={handleLogout}>
-              Logout
-            </NavDropdown.Item>
-          </NavDropdown>
-          <h4 className="header-user-info">
-            {user.data.firstName} {user.data.lastName}
-            <br />
-            {user.data.noTelp}
-          </h4>
-          <Icon icon="akar-icons:bell" width="28" />
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+              ></Image>
+            </div>
+            <div className="col-6 col-lg-6 ">
+              <h6 className="fw-bold">
+                {user?.firstName} {user?.lastName}
+              </h6>
+              <p className="fw-light">{user?.noTelp}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

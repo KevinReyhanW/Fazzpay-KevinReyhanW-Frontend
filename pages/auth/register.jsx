@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { register } from "../../stores/actions/signup";
 import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -12,15 +14,21 @@ export default function Login() {
     email: "",
     password: "",
   });
-
+  const handleLogin = () => {
+    router.push("/auth/login");
+  };
   const handleSubmit = () => {
     dispatch(register(form))
       .then((response) => {
-        alert(response.value.data.msg);
-        router.push("/login");
+        toast.success(response.value.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        router.push("/auth/login");
       })
       .catch((error) => {
-        alert(error.response.data.msg);
+        toast.error(error.response.data.msg, {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
@@ -116,10 +124,13 @@ export default function Login() {
             </div>
             <h4 className="d-flex justify-content-center account-check">
               Already have an account? Lets{" "}
-              <button className="click-me">Login</button>
+              <button className="click-me" onClick={handleLogin}>
+                Login
+              </button>
             </h4>
           </header>
         </div>
+        <ToastContainer />
       </div>
     </main>
   );

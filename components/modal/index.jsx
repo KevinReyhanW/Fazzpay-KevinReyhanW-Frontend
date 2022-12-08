@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Icon } from "@iconify/react";
 import { topup } from "../../stores/actions/topup";
 
 export default function ModalTopUp() {
@@ -11,7 +10,7 @@ export default function ModalTopUp() {
   const handleSubmit = () => {
     dispatch(topup(form))
       .then((response) => {
-        alert(response.value.data.data.redirectUrl);
+        window.open(response.value.data.data.redirectUrl);
       })
       .catch((error) => {
         alert(error.response.data.msg);
@@ -23,14 +22,6 @@ export default function ModalTopUp() {
   };
   return (
     <>
-      {/* <button
-        type="button"
-        className="btn btn-secondary dashboard-button"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        <Icon icon={"akar-icons:plus"} width="28" /> Top up
-      </button> */}
       <div
         className="modal fade"
         id="exampleModal"
