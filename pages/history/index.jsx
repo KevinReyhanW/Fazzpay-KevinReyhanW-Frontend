@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "layout/main";
-import Card from "components/Card/transaction";
+import Card from "components/card/transaction";
 import { getHistory } from "stores/actions/history";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
