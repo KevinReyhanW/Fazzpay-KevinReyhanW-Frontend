@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "layout/main";
 import Card from "components/card/transaction";
 import ModalTopUp from "components/modal";
+import { topup } from "stores/actions/topup";
 import Cookies from "js-cookie";
 import { dashboard } from "stores/actions/dashboard";
 import { getDataUserById } from "stores/actions/user";
@@ -25,6 +26,7 @@ export default function Home() {
   const [user, setUser] = useState({});
   const [dataDashboard, setDataDashboard] = useState({});
   const [dataHistory, setDataHistory] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
 
   // console.log(
   //   `https://res.cloudinary.com/dd1uwz8eu/image/upload/v1666604839/${dataHistory[0].image}`
@@ -131,19 +133,17 @@ export default function Home() {
           </div>
           <div className="col-3  text-end mt-4 mt-lg-0 ">
             <button
-              className="btn btn-outline-primary d-flex align-items-center w-75 justify-content-center"
+              className="btn btn-primary d-flex align-items-center w-75 justify-content-center"
               onClick={handleTransfer}
             >
               <Icon icon={"bx:up-arrow-alt"} width="28" /> Transfer
             </button>
             <button
-              className="btn btn-outline-primary d-flex align-items-center w-75 justify-content-center mt-4"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+              className="btn btn-primary d-flex align-items-center w-75 justify-content-center mt-4"
+              onClick={() => setModalShow(true)}
             >
               <Icon icon={"akar-icons:plus"} width="28" />
               Top Up
-              <ModalTopUp />
             </button>
           </div>
         </div>
@@ -209,6 +209,15 @@ export default function Home() {
             : ""}
         </div>
       </div>
+      <ModalTopUp
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        submit={(amount) =>
+          dispatch(topup({ amount }))
+            .then((res) => window.open(res.value.data.data.redirectUrl))
+            .catch((err) => alert(err))
+        }
+      />
     </Layout>
   );
 }

@@ -1,77 +1,33 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { topup } from "../../stores/actions/topup";
+import { Modal, Button, Form } from "react-bootstrap";
 
-export default function ModalTopUp() {
-  const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    amount: "",
-  });
-  const handleSubmit = () => {
-    dispatch(topup(form))
-      .then((response) => {
-        window.open(response.value.data.data.redirectUrl);
-      })
-      .catch((error) => {
-        alert(error.response.data.msg);
-      });
-  };
+export default function Topup(props) {
+  const [amount, setAmount] = useState(0);
 
-  const handleChangeText = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
   return (
-    <>
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Topup
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              Enter the amount of money, and click submit
-            </div>
-            <input
-              type="text"
-              id="amount"
-              name="amount"
-              className="input-modal-topup"
-              placeholder="Please enter the amount of money you want to top up"
-              onChange={handleChangeText}
-            />
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
+    <Modal {...props} size="" aria-labelledby="modalTopUp" centered>
+      <Modal.Header closeButton className="border-0">
+        <Modal.Title id="modalTopUp">Topup </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="">
+        <h6 className="text-black-50">
+          Enter the amount of money, and click submit
+        </h6>
+        <div className="d-flex justify-content-center">
+          <Form.Control
+            type="number"
+            size=""
+            placeholder="_____________________________"
+            className="text-center pt-3 text-black-50 fs-3 my-5"
+            onChange={({ target }) => setAmount(target.value)}
+          />
         </div>
-      </div>
-    </>
+      </Modal.Body>
+      <Modal.Footer className="border-0">
+        <Button onClick={() => props.submit(amount)} className="p-2 px-4">
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

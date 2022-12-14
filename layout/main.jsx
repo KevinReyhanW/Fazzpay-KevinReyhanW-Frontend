@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Header from "components/header";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { logout } from "stores/actions/logout";
+import { topup } from "stores/actions/topup";
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,6 +19,8 @@ export default function MainLayout(props) {
   const handleNavigate = (nav) => {
     router.push(`/${nav}`);
   };
+
+  const [modalShow, setModalShow] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout()).then((response) => {
@@ -75,10 +78,8 @@ export default function MainLayout(props) {
                 </button>
                 <button
                   className="btn btn-primary d-flex align-items-center w-75 justify-content-start mt-3 aside-btn"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
+                  onClick={() => setModalShow(true)}
                 >
-                  <ModalTopUp />
                   <h5 className="ms-3 mt-1 d-flex flex-row">
                     <Icon icon={"akar-icons:plus"} width="28" />
                     <p className="ps-1">TopUp</p>
@@ -114,6 +115,15 @@ export default function MainLayout(props) {
         <Footer />
         <ToastContainer />
       </div>
+      <ModalTopUp
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        submit={(amount) =>
+          dispatch(topup({ amount }))
+            .then((res) => window.open(res.value.data.data.redirectUrl))
+            .catch((err) => alert(err))
+        }
+      />
     </>
   );
 }
