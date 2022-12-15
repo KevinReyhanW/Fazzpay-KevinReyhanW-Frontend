@@ -6,7 +6,7 @@ export default function cardTransfer(props) {
   const { firstName, lastName, image } = props.data;
 
   return (
-    <div className="rounded shadow-sm p-2 d-flex justify-content-between align-items-center">
+    <div className="rounded shadow-sm p-2 d-flex justify-content-between align-items-center mb-3">
       <div className="d-flex">
         <div className="rounded me-3" style={{ width: "48px", height: "48px" }}>
           <Image

@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPaginate from "react-paginate";
 import Spinner from "react-bootstrap/Spinner";
+import { Icon } from "@iconify/react";
 
 export async function getServerSideProps(context) {
   try {
@@ -177,7 +178,7 @@ export default function Transfer(props) {
     } catch (error) {
       console.log(error);
       setIsLoading(false);
-      if (error.response?.data.msg === "Wrong pin") {
+      if (error.response?.data.msg === "Sorry your pin is wrong") {
         resetPinInput();
       } else {
         setIsError(true);
@@ -199,15 +200,15 @@ export default function Transfer(props) {
 
   return (
     <Layout title={"Transfer "}>
-      <div className="main-card  mb-5 transfer bg-white rounded shadow p-3 p-md-4 overflow-hidden position-relative">
+      <div className="mb-5 transfer rounded shadow p-md-5 overflow-hidden position-relative">
         {Object.keys(selectedReceiver).length === 0 ? (
           <div className="d-flex flex-column h-100">
             <h2 className="fs-5 fw-bold mb-3">Search Receiver</h2>
             <div className="mb-3 d-flex align-items-start">
-              <div className=" d-flex justify-content-center bg-light  input-with-icon px-2 rounded py-2 me-0 me-md-3 w-100">
+              <div className=" d-flex justify-content-center px-2 bg-light rounded py-2 me-0 me-md-3 w-100">
                 <input
                   type="text"
-                  className="search-box rounded  bg-opacity-25 border-0 ps-5 pe-3 w-100  "
+                  className="rounded bg-opacity-25 border-0 ps-5 pe-3 w-100  "
                   placeholder="Search receiver here"
                   value={search}
                   onChange={handleChangeSearchInput}
@@ -215,22 +216,22 @@ export default function Transfer(props) {
                 />
               </div>
               <select
-                className="form-select bg-ligth  bg-opacity-25 border-1 w-25 d-none d-md-block"
+                className="form-select bg-opacity-25 border-1 w-25 d-none d-md-block"
                 aria-label="sort user"
                 onChange={handleSort}
               >
                 <option defaultValue={""} value="">
                   --
                 </option>
-                <option value="firstName ASC">Sort Name Ascending</option>
-                <option value="firstName DESC">Sort Name Descending</option>
+                <option value="firstName ASC">Sort Name : Ascending</option>
+                <option value="firstName DESC">Sort Name : Descending</option>
               </select>
             </div>
             <div className="position-relative flex-grow-1">
-              <div className="scrollable-wrapper p-1  top-0 bottom-0 start-0 end-0">
+              <div className="p-1 top-0 bottom-0 start-0 end-0">
                 {users.map((user) => (
                   <div
-                    className="user-card rounded mb-2"
+                    className="rounded mb-4"
                     onClick={() => handleSelectReceiver(user)}
                     key={user.id}
                   >
@@ -241,17 +242,15 @@ export default function Transfer(props) {
             </div>
             <div className="d-flex justify-content-center">
               <ReactPaginate
-                previousLabel={"Previous"}
-                nextLabel={"Next"}
+                previousLabel={"<"}
+                nextLabel={">"}
                 breakLabel={"..."}
                 pageCount={pagination.totalPage}
                 onPageChange={handlePagination}
                 containerClassName={"pagination mb-0 mt-3"}
-                pageClassName={"page-item px-1"}
-                pageLinkClassName={"page-link rounded"}
-                previousClassName={"page-item visually-hidden"}
+                pageClassName={"page-item px-2"}
+                pageLinkClassName={"page-link rounded px-2"}
                 previousLinkClassName={"page-link"}
-                nextClassName={"page-item visually-hidden"}
                 nextLinkClassName={"page-link"}
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
@@ -263,6 +262,10 @@ export default function Transfer(props) {
           <div className="d-flex flex-column h-100">
             <h2 className="fs-5 fw-bold mb-3">Transfer Money</h2>
             <UserCard data={selectedReceiver} />
+            <p className="fs-5 mb-3 pt-3 transfer-before-detail">
+              Type the amount you want to transfer and then press continue to
+              the next steps.
+            </p>
             <form
               onSubmit={handleFormTransfer}
               autoComplete="off"
@@ -274,9 +277,9 @@ export default function Transfer(props) {
                   name="amount"
                   min={1000}
                   max={user.balance}
-                  className="transfer__amount-input d-block fs-1 fw-bold border-0 text-primary text-center mb-3 w-50 bg-transparent mx-auto "
+                  className="d-block fs-1 fw-bold border-0 text-primary text-center mb-3 w-50 bg-transparent mx-auto "
                   placeholder="0"
-                  aria-label="amount of money to transfer"
+                  aria-label="amount of transfer"
                   onChange={handleChangeForm}
                   value={formTransfer.amount}
                   required
@@ -284,7 +287,7 @@ export default function Transfer(props) {
                 <p className="fw-bold text-center">
                   {currency.format(user.balance)} Available
                 </p>
-                <div className="input-with-icon profile-form mx-auto">
+                <div className="mx-auto mb-3">
                   <input
                     type="text"
                     maxLength={20}
@@ -331,12 +334,6 @@ export default function Transfer(props) {
                         {detail.value}
                       </p>
                     </div>
-                    <div className="d-block d-md-none mb-3">
-                      <p className="fs-7 opacity-75 mb-1">{detail.name}</p>
-                      <p className="fw-bold m-0 text-truncate">
-                        {detail.value}
-                      </p>
-                    </div>
                   </div>
                 ))}
               </div>
@@ -367,14 +364,15 @@ export default function Transfer(props) {
               </h2>
               {isError ? (
                 <p className="fs-7 opacity-75 text-center">
-                  Error occured. Please check your connection or try again later
+                  We cant transfer your money at the moment, we recommend you to
+                  check your internet connection and try again.
                 </p>
               ) : null}
               <div className="row row-cols-2 mb-2">
                 {transferDetails.map((detail, index) => (
                   <div key={index} className="col">
-                    <div className="mb-3 rounded shadow-sm p-3">
-                      <p className="fs-7 opacity-75 mb-1">{detail.name}</p>
+                    <div className="mb-3 rounded shadow-sm p-3 mb-1">
+                      <p className="fs-7 opacity-75">{detail.name}</p>
                       <p className="fw-bold m-0 text-truncate">
                         {detail.value}
                       </p>
@@ -456,12 +454,7 @@ export default function Transfer(props) {
                 >
                   {isLoading ? (
                     <div className="text-center">
-                      <Spinner
-                        animation="border"
-                        size="lg"
-                        className="my-4"
-                        variant="primary"
-                      />
+                      <Spinner animation="border" size="sm" variant="primary" />
                     </div>
                   ) : (
                     "Continue"

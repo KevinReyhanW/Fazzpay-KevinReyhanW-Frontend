@@ -26,7 +26,14 @@ a {
   /* background: black; */
   /* } */
 }
-
+.transfer-before-detail {
+  font-size: 16px;
+  color: #7a7886;
+}
+.icon-transfer {
+  position: absolute;
+  padding: 100;
+}
 /*AUTH*/
 .container-auth {
   overflow: hidden;
